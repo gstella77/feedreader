@@ -74,21 +74,7 @@ $(function() {
               * clicked and does it hide when clicked again.
             */
 
-            it('should display', function(done) {
-            var $toggleIcon =  $('menu-icon-link');
-
-            if ($toggleIcon.trigger('click')) {
-                expect($('body').hasClass('menu-hidden')).toBe(false);
-            } else {
-                window.setTimeout(function() {
-                expect($('body').hasClass('menu-hidden')).toBe(true);
-                done();
-            }, 10000);
-            };
-        });
-
-
-            /*it('should display', function() {
+            it('should display', function() {
                 $('.menu-icon-link').click();
                 expect($('body').hasClass('menu-hidden')).toBe(false);
             });
@@ -96,7 +82,7 @@ $(function() {
             it('should hide', function() {
                 $('.menu-icon-link').click();
                 expect($('body').hasClass('menu-hidden')).toBe(true);
-            });*/
+            });
         });
 
     });
