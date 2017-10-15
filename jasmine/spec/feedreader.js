@@ -50,7 +50,6 @@ $(function() {
          })
     });
 
-    // https://discussions.udacity.com/t/initial-entries-test/201412/3
 
     /* TODO: Write a new test suite named "The menu" */
     describe('The menu', function() {
@@ -62,25 +61,27 @@ $(function() {
          */
 
         it('is hidden by default', function() {
-            // click method to test menu
+            //expect(element('div.slide-menu')).toBe(true);
+
             //$('.menu-icon-link').click();
-            expect($('body').hasClass('menu-hidden')).toBe(true);
+            expect($('body').hasClass('.menu-hidden')).toBe(false);
+
         });
 
-        describe('when clicked', function() {
-            /* TODO: Write a test that ensures the menu changes
-              * visibility when the menu icon is clicked. This test
-              * should have two expectations: does the menu display when
-              * clicked and does it hide when clicked again.
-            */
+        /* TODO: Write a test that ensures the menu changes
+          * visibility when the menu icon is clicked. This test
+          * should have two expectations: does the menu display when
+          * clicked and does it hide when clicked again.
+        */
 
-            it('should display', function() {
-                $('.menu-icon-link').click();
+        describe('when clicked', function() {
+            it('should display when clicked', function() {
+                $('a.menu-icon-link').click();
                 expect($('body').hasClass('menu-hidden')).toBe(false);
             });
 
-            it('should hide', function() {
-                $('.menu-icon-link').click();
+            it('should hide when clicked', function() {
+                $('a.menu-icon-link').click();
                 expect($('body').hasClass('menu-hidden')).toBe(true);
             });
         });
