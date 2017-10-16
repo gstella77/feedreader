@@ -52,35 +52,18 @@ $(function() {
 
 
     /* TODO: Write a new test suite named "The menu" */
-    describe('The menu', function() {
-
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
-         */
-
-        it('is hidden by default', function() {
-            //expect(element('div.slide-menu')).toBe(true);
-
-            //$('.menu-icon-link').click();
+    describe ('The menu', function() {
+        it ('is hidden by default', function() {
             expect($('body').hasClass('.menu-hidden')).toBe(false);
-
         });
 
-        /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-        */
-
-        describe('when clicked', function() {
-            it('should display when clicked', function() {
+        // refactored test into one expectation since we are
+        // testing one element with a toggleClass method
+        describe ('when clicked', function() {
+            it ('should toggle visibility', function() {
                 $('a.menu-icon-link').click();
                 expect($('body').hasClass('menu-hidden')).toBe(false);
-            });
 
-            it('should hide when clicked', function() {
                 $('a.menu-icon-link').click();
                 expect($('body').hasClass('menu-hidden')).toBe(true);
             });
@@ -97,6 +80,26 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
 
+    describe('initial entry loaded', function () {
+
+        // use beforeEach to make sure loadFeed async function runs before Jasmine test and signals
+        // when it is done. LoadFeed takes a callback (done/cb) which it is called
+        // after all entries have loaded.
+        // https://discussions.udacity.com/t/step-13-help-initial-entries/14839
+        beforeEach(function(done) {
+            //setTimeout(function() {
+            loadFeed(0, done);
+            //}, 5000);
+        });
+
+        it('should have added entries', function(done) {
+            var oneEntry = $('.feed').children().length;
+            expect(oneEntry).toBeGreaterThan(0);
+            done();
+        });
+
+    });
+
     /* TODO: Write a new test suite named "New Feed Selection" */
 
         /* TODO: Write a test that ensures when a new feed is loaded
@@ -104,3 +107,11 @@ $(function() {
          * Remember, loadFeed() is asynchronous.
          */
 }());
+
+// console tests
+// $('.feed').children()
+// $('.feed').children().length
+// test open menu
+// $('a.menu-icon-link').click()
+// test menu visibility (open - true)  and (closed- false)
+// $('document.body').hasClass('.menu-hidden')
