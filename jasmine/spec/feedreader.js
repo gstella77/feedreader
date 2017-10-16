@@ -31,34 +31,38 @@ $(function() {
          * and that the URL is not empty.
          */
 
-         it('have a defined URL', function() {
-            for (var i = 0; i < allFeeds.length; i++) {
-                expect(allFeeds[i].url).toBeDefined();
-                expect(allFeeds[i].url).not.toBe(0);
-            }
+        it('have a defined url', function() {
+            allFeeds.forEach(function(feed) {
+                // Test non-existent property to fail the expectation
+                // expect(feed.hoho).toBeDefined();
+                expect(feed.url).toBeDefined();
+                expect(feed.url).not.toBe(0);
+            });
         });
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
-         it('have a defined name', function() {
-            for (var i = 0; i < allFeeds.length; i++) {
-                expect(allFeeds[i].name).toBeDefined();
-                expect(allFeeds[i].name).not.toBe(0);
-            }
-         })
+
+        // forEach loop to iterate through each item
+        it('have a defined name', function() {
+            allFeeds.forEach(function(feed) {
+                expect(feed.name).toBeDefined();
+                expect(feed.name).not.toBe(0);
+            });
+        });
     });
 
 
     /* TODO: Write a new test suite named "The menu" */
     describe ('The menu', function() {
         it ('is hidden by default', function() {
-            expect($('body').hasClass('.menu-hidden')).toBe(false);
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
         // refactored test into one expectation since we are
-        // testing one element with a toggleClass method
+        // testing an element with a toggleClass method
         describe ('when clicked', function() {
             it ('should toggle visibility', function() {
                 $('a.menu-icon-link').click();
