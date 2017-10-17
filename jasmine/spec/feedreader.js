@@ -142,12 +142,3 @@ $(function() {
         });
     });
 }());
-
-// console tests
-// $('.feed').children()
-// $('.feed').children().length
-// test open menu
-// $('a.menu-icon-link').click()
-// test menu visibility (open - true) (closed- false)
-// $('document.body').hasClass('menu-hidden')
-
