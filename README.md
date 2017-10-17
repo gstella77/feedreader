@@ -1,7 +1,7 @@
 ## Feedreader App: Testing with Jasmine Framework
 This project includes the feedreader.js which it uses the **_Jasmine_** library to test the app functionality. Below is a description on how the tests were implemented for this project.
 
-###Test Suites
+### Test Suites
 #### RSS Feeds
 Before initializing all the tests, the ```forEach``` loop was used to test if the properties of all **AllFeeds** array were defined and not empty using the ```not.toBe()``` matcher.
 
@@ -18,6 +18,7 @@ This suite tests if the current feed  is different from the previous selected on
 1. Clone the folder by copying the link on the top right corner (green button) and paste it in your terminal using Git. Instructions about how to use Git and how to clone a repository are found [here](https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/).
 2. Navigate to the folder location using ```$ cd /path/to/your-project-folder```
 3. To test the functionality using a local server run **python server** by typing ```python -m SimpleHTTPServer 8080```
+4. Open the index.html file to start testing the app's functionality.
 
 ### Project Components and Vendor Libraries
 * jasmine-2.1.2
