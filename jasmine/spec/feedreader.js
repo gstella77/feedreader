@@ -35,8 +35,8 @@ $(function() {
             allFeeds.forEach(function(feedurl) {
                 // Test non-existent property to fail the expectation
                 // expect(feed.hoho).toBeDefined();
-                expect(feed.url).toBeDefined();
-                expect(feed.url).not.toBe(0);
+                expect(feedurl.url).toBeDefined();
+                expect(feedurl.url).not.toBe(0);
             });
         });
 
@@ -48,8 +48,8 @@ $(function() {
         // forEach loop to iterate through each item
         it('have a defined name', function() {
             allFeeds.forEach(function(feedname) {
-                expect(feed.name).toBeDefined();
-                expect(feed.name).not.toBe(0);
+                expect(feedname.name).toBeDefined();
+                expect(feedname.name).not.toBe(0);
             });
         });
     });
