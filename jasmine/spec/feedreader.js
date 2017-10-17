@@ -86,30 +86,56 @@ $(function() {
 
     describe('initial entry loaded', function () {
 
-        // use beforeEach to make sure loadFeed async function runs before Jasmine test and signals
-        // when it is done. LoadFeed takes a callback (done/cb) which it is called
-        // after all entries have loaded.
+        // use beforeEach and pass done into the loadFeed function to tell Jasmine
+        // the request is complete before we can test it.
         // https://discussions.udacity.com/t/step-13-help-initial-entries/14839
+
         beforeEach(function(done) {
-            //setTimeout(function() {
             loadFeed(0, done);
-            //}, 5000);
         });
 
-        it('should have added entries', function(done) {
-            var oneEntry = $('.feed').children().length;
+        // it() function gets executed after gets the OK from the beforeEach() that
+        // the data has been loaded. There are no asynchronous events in the it() function,
+        // so the done parameter and done() function are not utilized.
+        // https://discussions.udacity.com/t/when-does-it-require-done/38785/2
+        it('should have added entries', function() {
+            var oneEntry = $('.feed .entry').length;
             expect(oneEntry).toBeGreaterThan(0);
-            done();
         });
 
     });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
-
+    describe('When new feed is loaded', function () {
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        var newFeed,
+            oldFeed;
+
+        // Asyn function to load feed 1
+        beforeEach(function(done) {
+            oldFeed = $('.feed').children();
+            loadFeed(1, done);
+        });
+
+         // afterEach Asyn function to return to original feed after test
+        afterEach(function(done) {
+            //setTimeout(function() {
+            newFeed = $('.feed').children();
+            loadFeed(0, done);
+            //}, 5000);
+        });
+
+        // done callback is not needed since we are querying the Dom to compare
+         it('should change the content', function() {
+            //var beforeLength = $('.feed').children().length;
+             expect(oldFeed).not.toBe(newFeed);
+         });
+
+    });
+
 }());
 
 // console tests
@@ -118,4 +144,5 @@ $(function() {
 // test open menu
 // $('a.menu-icon-link').click()
 // test menu visibility (open - true)  and (closed- false)
-// $('document.body').hasClass('.menu-hidden')
+// $('document.body').hasClass('menu-hidden')
+
