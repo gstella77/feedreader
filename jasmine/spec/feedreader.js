@@ -32,7 +32,7 @@ $(function() {
          */
 
         it('have a defined url', function() {
-            allFeeds.forEach(function(feed) {
+            allFeeds.forEach(function(feedurl) {
                 // Test non-existent property to fail the expectation
                 // expect(feed.hoho).toBeDefined();
                 expect(feed.url).toBeDefined();
@@ -47,7 +47,7 @@ $(function() {
 
         // forEach loop to iterate through each item
         it('have a defined name', function() {
-            allFeeds.forEach(function(feed) {
+            allFeeds.forEach(function(feedname) {
                 expect(feed.name).toBeDefined();
                 expect(feed.name).not.toBe(0);
             });
@@ -57,25 +57,36 @@ $(function() {
 
     /* TODO: Write a new test suite named "The menu" */
     describe ('The menu', function() {
+
+        /* TODO: Write a test that ensures the menu element is
+         * hidden by default. You'll have to analyze the HTML and
+         * the CSS to determine how we're performing the
+         * hiding/showing of the menu element.
+         */
+
         it ('is hidden by default', function() {
             expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
+        /* TODO: Write a test that ensures the menu changes
+         * visibility when the menu icon is clicked. This test
+         * should have two expectations: does the menu display when
+         * clicked and does it hide when clicked again.
+         */
+
         // refactored test into one expectation since we are
-        // testing an element with a toggleClass method
-        describe ('when clicked', function() {
-            it ('should toggle visibility', function() {
-                $('a.menu-icon-link').click();
-                expect($('body').hasClass('menu-hidden')).toBe(false);
+        // testing an element with a toggleClass method in the app.js
+        it ('should toggle visibility', function() {
+            $('.menu-icon-link').click();
+            expect($('body').hasClass('menu-hidden')).toBe(false);
 
-                $('a.menu-icon-link').click();
-                expect($('body').hasClass('menu-hidden')).toBe(true);
-            });
+            $('.menu-icon-link').click();
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
-
     });
 
     /* TODO: Write a new test suite named "Initial Entries" */
+    describe('Initial Entries', function () {
 
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
@@ -84,20 +95,21 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
 
-    describe('initial entry loaded', function () {
 
-        // use beforeEach and pass done into the loadFeed function to tell Jasmine
-        // the request is complete before we can test it.
-        // https://discussions.udacity.com/t/step-13-help-initial-entries/14839
+        /* Used beforeEach and pass done callback to tell Jasmine
+         * the request is complete before we can test it.
+         * https://discussions.udacity.com/t/step-13-help-initial-entries/14839
+         */
 
+        // Test 0 index for intitial entry
         beforeEach(function(done) {
             loadFeed(0, done);
         });
 
-        // it() function gets executed after gets the OK from the beforeEach() that
-        // the data has been loaded. There are no asynchronous events in the it() function,
-        // so the done parameter and done() function are not utilized.
-        // https://discussions.udacity.com/t/when-does-it-require-done/38785/2
+        /* The it() function gets executed after the asynch data has been loaded.
+         * Since there are not asynchronous events the done() callback is not needed.
+         * https://discussions.udacity.com/t/when-does-it-require-done/38785/2
+         */
         it('should have added entries', function() {
             var oneEntry = $('.feed .entry').length;
             expect(oneEntry).toBeGreaterThan(0);
@@ -106,36 +118,29 @@ $(function() {
     });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
-    describe('When new feed is loaded', function () {
+    describe('New Feed Selection', function () {
+
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-        var newFeed,
-            oldFeed;
+        var oldFeed;
 
-        // Asyn function to load feed 1
+        // Asynchronous function to load first feed
         beforeEach(function(done) {
-            oldFeed = $('.feed').children();
-            loadFeed(1, done);
-        });
-
-         // afterEach Asyn function to return to original feed after test
-        afterEach(function(done) {
-            //setTimeout(function() {
-            newFeed = $('.feed').children();
             loadFeed(0, done);
-            //}, 5000);
+            oldFeed = $('.header-title').html();
         });
 
-        // done callback is not needed since we are querying the Dom to compare
-         it('should change the content', function() {
-            //var beforeLength = $('.feed').children().length;
-             expect(oldFeed).not.toBe(newFeed);
-         });
-
+        // Load second feed asynchronously
+        it('should change the content', function(done) {
+            //var beforeLength = $('.feed').children()
+            loadFeed (1, function() {
+                expect($('.header-title').html()).not.toEqual(oldFeed);
+                done();
+            });
+        });
     });
-
 }());
 
 // console tests
@@ -143,6 +148,6 @@ $(function() {
 // $('.feed').children().length
 // test open menu
 // $('a.menu-icon-link').click()
-// test menu visibility (open - true)  and (closed- false)
+// test menu visibility (open - true) (closed- false)
 // $('document.body').hasClass('menu-hidden')
 
