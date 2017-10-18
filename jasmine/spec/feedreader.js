@@ -26,6 +26,9 @@ $(function() {
          * Per reviewer requirement, propper access to the name and url strings lenght
          * has been implemented.
          */
+
+         /* Per reviewer requirement, returned the lenght of the string property
+          * of url and name objects */
         it('have a defined url', function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.url).toBeDefined();
@@ -44,7 +47,6 @@ $(function() {
             });
         });
     });
-
 
     /* "The menu" Test suite */
     describe ('The menu', function() {
@@ -86,8 +88,8 @@ $(function() {
         });
 
         /* it() function gets executed after the asynch data has been loaded.
-         * Jasmine docs suggest to use done() callback however Since there are
-         * not asynchronous events done() is not needed.
+         * Jasmine docs suggest to use done() callback however it is no needed
+         * Since there are not asynchronous events.
          * https://discussions.udacity.com/t/when-does-it-require-done/38785/2
          */
         it('should have added entries', function() {
@@ -116,7 +118,8 @@ $(function() {
             });
         });
 
-        /* Load second feed 0-index asynchronously so it is the default */
+        /* Load second feed asynchronously
+         * Loaded 0-index so it is the default after comparison */
         it('should change the content', function(done) {
             loadFeed (0, function() {
                 expect($('.feed').html()).not.toEqual(oldFeed);
